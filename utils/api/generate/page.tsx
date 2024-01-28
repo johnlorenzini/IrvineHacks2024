@@ -4,7 +4,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export default async function handler(req, res) {
+export default async function handler(req : any, res : any) {
   if (req.method === "POST") {
     try {
       const { prompt } = req.body;

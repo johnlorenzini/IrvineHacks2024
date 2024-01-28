@@ -17,18 +17,6 @@ import { useState, useEffect } from "react";
 
 const queryParameters = new URLSearchParams(window.location.search);
 const activeCondition = queryParameters.get("condition");
-  const [data, setData] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/responses_6.json")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("hello!");
-        setData(data);
-        setLoading(false);
-      });
-  }, []);
  
 
 const conditionsArray = [
@@ -642,7 +630,7 @@ function Prognosis() {
                 Prognosis
               </ModalHeader>
               <ModalBody className="h-5/6">
-                data.[]
+                data[conditionsArray.findIndex(activeCondition)]
               </ModalBody>
             </>
           )}
