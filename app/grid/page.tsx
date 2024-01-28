@@ -264,7 +264,7 @@ export default function Home() {
     // create list of keys and values
     return (
       
-      <Accordion>
+      <Accordion className="space-y-4">
         {items.map((val, index) => (
         <AccordionItem
           key={index}
@@ -945,7 +945,7 @@ export default function Home() {
     return (
       
       <Accordion
-      isDisabled={true}>
+      isDisabled={true} className="space-y-4">
         {items.map((val, index) => (
         <AccordionItem
           key={index}
