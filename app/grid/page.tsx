@@ -1003,7 +1003,7 @@ export default function Home() {
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-white min-h-screen p-[4.1667vw]"
+          className="bg-white min-h-screen p-[4.1667vw] pt-60"
           hideCloseButton={true}
         >
           <ModalContent>
