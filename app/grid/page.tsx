@@ -288,7 +288,7 @@ export default function Home() {
         }}
       >
         <div className="flex flex-col text-left">
-          <div className="font-bold text-6xl">{activeCondition}</div>
+          <div className="font-bold text-[3.125vw]">{activeCondition}</div>
           <div className="text-[1.4583vw] font-semibol w-5/6">
             {activeDescription}
           </div>
@@ -340,10 +340,10 @@ export default function Home() {
               />
             </svg>
             <div className="flex flex-col justify-start place-items-start">
-              <div className="text-5xl  font-bold">Treatment</div>
+              <div className="text-[2.500vw]  font-bold">Treatment</div>
             </div>
           </div>
-          <div className="pt-2 text-xl font-semibold text-[#6B7280] w-5/6 whitespace-normal text-left">
+          <div className="pt-2 text-[1.042vw] font-semibold text-[#6B7280] w-5/6 whitespace-normal text-left">
             In-depth understanding of your wellness plan.
           </div>
         </Button>
@@ -391,7 +391,7 @@ export default function Home() {
                       />
                     </svg>
                   </Button>
-                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                  <div className="pt-16 text-[2.500vw] font-bold px-2 py-0 text-black">
                     Treatment{" "}
                   </div>
                   <div className="text-md px-2 py-0 text-black">
@@ -499,23 +499,23 @@ export default function Home() {
                 fill={activePalette.accent}
               />
             </svg>
-            <div className="text-5xl  font-bold">Symptoms</div>
+            <div className="text-[2.500vw]  font-bold">Symptoms</div>
           </div>
           <div className="pl-[1.0417vw] pt-5 flex flex-col w-full h-4/5 justify-around">
             <div
-              className=" border-l-3 border-l-[#E10E0E] pl-[1.0417vw] py-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left"
+              className=" border-l-3 border-l-[#E10E0E] pl-[1.0417vw] py-2 text-[1.250vw] font-semibold text-[#6B7280] whitespace-normal text-left"
               style={{ borderLeftColor: activePalette.accent }}
             >
               Primary Symptoms
             </div>
             <div
-              className=" border-l-3 border-l-[#E10E0E] pl-[1.0417vw] py-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left"
+              className=" border-l-3 border-l-[#E10E0E] pl-[1.0417vw] py-2 text-[1.250vw] font-semibold text-[#6B7280] whitespace-normal text-left"
               style={{ borderLeftColor: activePalette.accent }}
             >
               Secondary Symptoms
             </div>
             <div
-              className=" border-l-3 border-l-[#E10E0E] pl-[1.0417vw] py-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left"
+              className=" border-l-3 border-l-[#E10E0E] pl-[1.0417vw] py-2 text-[1.250vw] font-semibold text-[#6B7280] whitespace-normal text-left"
               style={{ borderLeftColor: activePalette.accent }}
             >
               Physical Symptoms
@@ -566,7 +566,7 @@ export default function Home() {
                       />
                     </svg>
                   </Button>
-                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                  <div className="pt-16 text-[2.500vw] font-bold px-2 py-0 text-black">
                     {" "}
                     Symptoms
                   </div>
@@ -660,10 +660,10 @@ export default function Home() {
               />
             </svg>
             <div className="flex flex-col justify-start place-items-start">
-              <div className="text-5xl  font-bold">Prognosis</div>
+              <div className="text-[2.500vw]  font-bold">Prognosis</div>
             </div>
           </div>
-          <div className="pt-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left">
+          <div className="pt-2 text-[1.250vw] font-semibold text-[#6B7280] whitespace-normal text-left">
             Understanding your life outlook.
           </div>
           <div className="flex items-center h-full gap-[.5833vw]">
@@ -742,7 +742,7 @@ export default function Home() {
                       />
                     </svg>
                   </Button>
-                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                  <div className="pt-16 text-[2.500vw] font-bold px-2 py-0 text-black">
                     Prognosis{" "}
                   </div>
                   <div className="text-md px-2 py-0 text-black">
@@ -796,10 +796,10 @@ export default function Home() {
               />
             </svg>
             <div className="flex flex-col justify-start place-items-start">
-              <div className="text-5xl  font-bold">Research</div>
+              <div className="text-[2.500vw]  font-bold">Research</div>
             </div>
           </div>
-          <div className="pt-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left">
+          <div className="pt-2 text-[1.250vw] font-semibold text-[#6B7280] whitespace-normal text-left">
             Learn more from the latest sources.
           </div>
           <div className="flex flex-col justify-start pt-[1.0417vw] h-full w-full gap-[1.0417vw]">
@@ -883,7 +883,7 @@ export default function Home() {
                       />
                     </svg>
                   </Button>
-                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                  <div className="pt-16 text-[2.500vw] font-bold px-2 py-0 text-black">
                     Research{" "}
                   </div>
                   <div className="text-md px-2 py-0 text-black">
@@ -961,10 +961,10 @@ export default function Home() {
               />
             </svg>
             <div className="flex flex-col justify-start place-items-start">
-              <div className="text-5xl  font-bold">Common Questions</div>
+              <div className="text-[2.500vw]  font-bold">Common Questions</div>
             </div>
           </div>
-          <div className="pt-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left">
+          <div className="pt-2 text-[1.250vw] font-semibold text-[#6B7280] whitespace-normal text-left">
             Questions asked by other patients.
           </div>
           <div className="flex items-center h-full gap-[.5833vw]">
@@ -1043,7 +1043,7 @@ export default function Home() {
                       />
                     </svg>
                   </Button>
-                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                  <div className="pt-16 text-[2.500vw] font-bold px-2 py-0 text-black">
                     Common Questions{" "}
                   </div>
                   <div className="text-md px-2 py-0 text-black">
