@@ -10,13 +10,12 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
+  Skeleton,
+  Card
 } from "@nextui-org/react";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-
-const queryParameters = new URLSearchParams(window.location.search);
-const activeCondition = queryParameters.get("condition");
  
 
 const conditionsArray = [
@@ -204,19 +203,11 @@ const paletteBox = {
   },
 };
 
-if (!activeCondition) {
-  window.location.href = "/";
-}
-// @ts-ignore
-const activePalette = paletteBox[categoryData[conditionColors[activeCondition].category].color];
-// @ts-ignore
-const activeImage = categoryData[conditionColors[activeCondition].category].icon;
-// @ts-ignore
-const activeDescription = conditionColors[activeCondition].desc;
 
 export default function Home() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [activeCondition, setActiveCondition] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -225,10 +216,37 @@ export default function Home() {
       setData(json);
       setLoading(false);
     }
+    const queryParameters = new URLSearchParams(window.location.search);
+    setActiveCondition(queryParameters.get("condition"));
     fetchData();
+    setLoading(false);
   }, []);
   
-  
+  if(isLoading){
+    return (
+      <Card className="w-full h-full space-y-5 p-4" radius="lg">
+        <Skeleton className="rounded-lg">
+          <div className="h-24 rounded-lg bg-default-300"></div>
+        </Skeleton>
+        <div className="space-y-3">
+          <Skeleton className="w-3/5 rounded-lg">
+            <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+          </Skeleton>
+          <Skeleton className="w-4/5 rounded-lg">
+            <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+          </Skeleton>
+          <Skeleton className="w-2/5 rounded-lg">
+            <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
+          </Skeleton>
+        </div>
+      </Card>
+    );
+  }
+  const activePalette =
+    paletteBox[categoryData[conditionColors[activeCondition].category].color];
+  const activeImage =
+    categoryData[conditionColors[activeCondition].category].icon;
+  const activeDescription = conditionColors[activeCondition].desc;
  
 
   function Hero() {
