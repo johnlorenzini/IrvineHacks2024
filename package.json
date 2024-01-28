@@ -9,12 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@bentogrid/core": "^1.1.1",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
+    "@nextui-org/react": "^2.2.9",
+    "ai": "^2.2.31",
+    "firebase": "^10.7.2",
+    "framer-motion": "^11.0.3",
     "next": "14.1.0",
+    "openai": "^4.26.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tw-elements": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",
