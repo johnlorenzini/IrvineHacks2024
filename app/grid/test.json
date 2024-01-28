@@ -1,0 +1,106 @@
+{
+  "Addisons disease": {
+    "category": "endocrine",
+    "desc": "It's like your body doesn't have enough energy, so you always feel tired and weak."
+  },
+  "Asthma": {
+    "category": "resp",
+    "desc": "Imagine your airways are like straws that sometimes get narrow, making it hard to breathe."
+  },
+  "Bipolar mood disorder": {
+    "category": "psych",
+    "desc": "It's like your emotions are on a rollercoaster, going from super high to super low, and it's tough to control."
+  },
+  "Bronchiectasis": {
+    "category": "resp",
+    "desc": "Think of your lungs' tubes as floppy, which makes it tough to clear mucus, causing breathing issues."
+  },
+  "Cardiac dysrhythmias": {
+    "category": "cardio",
+    "desc": "It's like your heart's rhythm is a wild dance, sometimes too fast or too slow."
+  },
+  "Cardiac failure": {
+    "category": "cardio",
+    "desc": "Your heart gets tired and can't pump blood properly, so you feel weak."
+  },
+  "Cardiomyopathy": {
+    "category": "cardio",
+    "desc": "Picture your heart muscle getting weak and floppy, like a worn-out rubber band."
+  },
+  "Chronic obstructive pulmonary disease": {
+    "category": "resp",
+    "desc": "Imagine breathing through a narrow straw because your lungs are damaged, making it hard to get enough air."
+  },
+  "Chronic renal disease": {
+    "category": "endocrine",
+    "desc": "Your kidneys are like filters that get clogged, causing waste and toxins to build up in your body."
+  },
+  "Coronary artery disease": {
+    "category": "cardio",
+    "desc": "Think of your heart's blood vessels as blocked highways, limiting blood and oxygen flow to your heart."
+  },
+  "Crohns disease": {
+    "category": "gastro",
+    "desc": "It's like your digestive system is always upset, causing tummy pain, diarrhea, and inflammation."
+  },
+  "Diabetes insipidus": {
+    "category": "endocrine",
+    "desc": "Imagine your body as a leaky faucet, making you really thirsty and pee a lot."
+  },
+  "Diabetes mellitus Type 1": {
+    "category": "endocrine",
+    "desc": "Your body can't unlock the cells for sugar, so your blood sugar levels get too high."
+  },
+  "Diabetes mellitus Type 2": {
+    "category": "endocrine",
+    "desc": "It's like your cell's key to unlock sugar gets rusty, causing high blood sugar."
+  },
+  "Epilepsy": {
+    "category": "neuro",
+    "desc": "Picture your brain's electricity going haywire, leading to seizures and confusion."
+  },
+  "Glaucoma": {
+    "category": "optha",
+    "desc": "It's like your eye's plumbing gets clogged, leading to high eye pressure and potential vision loss."
+  },
+  "Haemophilia": {
+    "category": "haemo",
+    "desc": "Think of your blood's clotting as slow and inefficient, making you bleed a lot."
+  },
+  "Hyperlipidaemia": {
+    "category": "cardio",
+    "desc": "Imagine your bloodstream as a traffic jam filled with too much cholesterol and fat."
+  },
+  "Hypertension": {
+    "category": "cardio",
+    "desc": "It's like your blood vessels are always squeezed tight, causing high blood pressure."
+  },
+  "Hypothyroidism": {
+    "category": "endocrine",
+    "desc": "Picture your metabolism as a slow engine, making you tired and gain weight."
+  },
+  "Multiple sclerosis": {
+    "category": "neuro",
+    "desc": "Think of your nervous system wires with damaged insulation, causing communication problems."
+  },
+  "Parkinsons disease": {
+    "category": "neuro",
+    "desc": "It's like your body's movement control is fading, leading to shaky hands and stiffness."
+  },
+  "Rheumatoid arthritis": {
+    "category": "rheuma",
+    "desc": "Imagine your joints as battlegrounds where your body fights itself, causing pain and swelling."
+  },
+  "Schizophrenia": {
+    "category": "psych",
+    "desc": "It's like having a radio that plays confusing and distorted signals, making it hard to tell what's real."
+  },
+  "Systemic lupus erythematosus": {
+    "category": "rheuma",
+    "desc": "Think of your immune system as a confused soldier attacking healthy parts, causing inflammation and various problems."
+  },
+  "Ulcerative colitis": {
+    "category": "rheuma",
+    "desc": "It's like having constant tummy trouble with inflammation and open sores in your gut."
+  }
+}

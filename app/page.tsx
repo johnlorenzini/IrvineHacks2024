@@ -1,44 +1,30 @@
 "use client";
 import app from "../utils/firebase";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { useState } from "react";
 import { NextUIProvider } from "@nextui-org/react";
-import { Button } from "@nextui-org/react";
+import { useEffect } from "react";
 
 export default function Home() {
-  const conditions = [
-    "Addisons disease",
-    "Asthma",
-    "Bipolar mood disorder",
-    "Bronchiectasis",
-    "Cardiac dysrhythmias",
-    "Cardiac failure",
-    "Cardiomyopathy",
-    "Chronic obstructive pulmonary disease",
-    "Chronic renal disease",
-    "Coronary artery disease",
-    "Crohns disease",
-    "Diabetes insipidus",
-    "Diabetes mellitus Type 1",
-    "Diabetes mellitus Type 2",
-    "Epilepsy",
-    "Glaucoma",
-    "Haemophilia",
-    "Hyperlipidaemia",
-    "Hypertension",
-    "Hypothyroidism",
-    "Multiple sclerosis",
-    "Parkinsons disease",
-    "Rheumatoid arthritis",
-    "Schizophrenia",
-    "Systemic lupus erythematosus",
-    "Ulcerative colitis",
-  ];
+  const [conditions, setConditions] = useState<string[]>([]);
+  
   const [searchResults, setSearchResults] = useState([]);
 
   const db = getFirestore(app);
 
-  console.log(db);
+  useEffect(() => {
+      const fetchConditions = async () => {
+        const querySnapshot = await getDocs(collection(db, "conditions"));
+        const documentNames = querySnapshot.docs.map((doc) => doc.id);
+        setConditions(documentNames);
+      };
+
+      fetchConditions();
+    }, []);
+
+
+
+  
 
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState<string[]>([]);
@@ -61,16 +47,6 @@ export default function Home() {
     const responseData = await response.text();
     return responseData;
   }
-
-  // create new collection and add dummy data
-  async function addDummyData() {
-    const docRef = await addDoc(collection(db, "conditions"), {
-      condition: "Addisons disease",
-    });
-    console.log("Document written with ID: ", docRef.id);
-  }
-
-  // addDummyData();
 
   function filterResults(query: string) {
     // search for query in conditions (must be 1:1 ex query[0] must equal conditions[0)
@@ -108,7 +84,7 @@ export default function Home() {
           <input
             type="text"
             className=" w-full outline-none bg-white bg-transparent text-zinc-500 rounded-3xl text-left py-3 px-10"
-            placeholder=""
+            placeholder="Start typing to search for a condition"
             onChange={(e) => filterResults(e.target.value)}
             onFocus={(e) => console.log(e.target.value)}
             required

@@ -1,6 +1,9 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import data from "../../utils/responses.json";
+import app from "../../utils/firebase";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 import {
   Modal,
@@ -16,12 +19,13 @@ import {
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
- 
+import { background } from "@chakra-ui/react";
 
+ 
 const conditionsArray = [
   "Addisons disease",
   "Asthma",
-  "Bipolar mood disorder",
+    "Bipolar mood disorder",
   "Bronchiectasis",
   "Cardiac dysrhythmias",
   "Cardiac failure",
@@ -56,13 +60,33 @@ const categoryData = {
     color: "green",
     icon: "/resp.svg",
   },
-  psych: {
+  neuro: {
     color: "purple",
-    icon: "/psych.svg",
+    icon: "/neuro.svg",
   },
   cardio: {
     color: "red",
     icon: "/cardiac.svg",
+  },
+  gastro:{
+    color: "orange",
+    icon: "/gastro.svg"
+  },
+  rheuma:{
+    color: "orange",
+    icon: "/rheuma.svg"
+  },
+  psych:{
+    color: "purple",
+    icon: "/psych.svg"
+  },
+  optha:{
+    color: "orange",
+    icon: "/optha.svg"
+  },
+  haemo:{
+    color: "orange",
+    icon: "/haemo.svg"
   },
 };
 
@@ -100,7 +124,7 @@ const conditionColors = {
     desc: "Imagine breathing through a narrow straw because your lungs are damaged, making it hard to get enough air.",
   },
   "Chronic renal disease": {
-    category: "",
+    category: "endocrine",
     desc: "Your kidneys are like filters that get clogged, causing waste and toxins to build up in your body.",
   },
   "Coronary artery disease": {
@@ -108,7 +132,7 @@ const conditionColors = {
     desc: "Think of your heart's blood vessels as blocked highways, limiting blood and oxygen flow to your heart.",
   },
   "Crohns disease": {
-    category: "",
+    category: "gastro",
     desc: "It's like your digestive system is always upset, causing tummy pain, diarrhea, and inflammation.",
   },
   "Diabetes insipidus": {
@@ -124,15 +148,15 @@ const conditionColors = {
     desc: "It's like your cell's key to unlock sugar gets rusty, causing high blood sugar.",
   },
   Epilepsy: {
-    category: "psych",
+    category: "neuro",
     desc: "Picture your brain's electricity going haywire, leading to seizures and confusion.",
   },
   Glaucoma: {
-    category: "",
+    category: "optha",
     desc: "It's like your eye's plumbing gets clogged, leading to high eye pressure and potential vision loss.",
   },
   Haemophilia: {
-    category: "",
+    category: "haemo",
     desc: "Think of your blood's clotting as slow and inefficient, making you bleed a lot.",
   },
   Hyperlipidaemia: {
@@ -148,15 +172,15 @@ const conditionColors = {
     desc: "Picture your metabolism as a slow engine, making you tired and gain weight.",
   },
   "Multiple sclerosis": {
-    category: "psych",
+    category: "neuro",
     desc: "Think of your nervous system wires with damaged insulation, causing communication problems.",
   },
   "Parkinsons disease": {
-    category: "psych",
+    category: "neuro",
     desc: "It's like your body's movement control is fading, leading to shaky hands and stiffness.",
   },
   "Rheumatoid arthritis": {
-    category: "",
+    category: "rheuma",
     desc: "Imagine your joints as battlegrounds where your body fights itself, causing pain and swelling.",
   },
   Schizophrenia: {
@@ -164,82 +188,71 @@ const conditionColors = {
     desc: "It's like having a radio that plays confusing and distorted signals, making it hard to tell what's real.",
   },
   "Systemic lupus erythematosus": {
-    category: "",
+    category: "rheuma",
     desc: "Think of your immune system as a confused soldier attacking healthy parts, causing inflammation and various problems.",
   },
   "Ulcerative colitis": {
-    category: "",
+    category: "rheuma",
     desc: "It's like having constant tummy trouble with inflammation and open sores in your gut.",
   },
 };
 const paletteBox = {
   red: {
     hero: "#F56060",
-    accent: "#E10E0E",
+    accent: "#F56060",
     background: "#FBC0C0",
     card: "#FEF3F3",
-    badge: "#FFF5F5",
+    badge: "#FEF3F3",
   },
   blue: {
     hero: "#5475E5",
-    accent: "#1C3FB7",
+    accent: "#5475E5",
     background: "#ADBCF2",
     card: "#F5F3FF",
-    badge: "#E1E8FF",
+    badge: "#F5F3FF",
   },
   purple: {
     hero: "#8646F4",
-    accent: "#5B21B6",
+    accent: "#8646F4",
     background: "#DDD6FE",
     card: "#F5F3FF",
-    badge: "#EDE9FE",
+    badge: "#F5F3FF",
   },
   green: {
     hero: "#1A8245",
     accent: "#1A8245",
     background: "#ACEFC8",
     card: "#DAF8E6",
-    badge: "#F0FFF4",
+    badge: "#DAF8E6",
+  },
+  orange: {
+    hero: "#E1580E",
+    accent: "#E1580E",
+    background: "#FDE5D8",
+    card: "#FFF0E9",
+    badge: "#FFF0E9",
   },
 };
 
 
 export default function Home() {
-  const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [activeCondition, setActiveCondition] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("./responses.json");
-      const json = await res.json();
-      setData(json);
-      setLoading(false);
-    }
     const queryParameters = new URLSearchParams(window.location.search);
     setActiveCondition(queryParameters.get("condition"));
-    fetchData();
     setLoading(false);
   }, []);
   
   if(isLoading){
     return (
-      <Card className="w-full h-full space-y-5 p-4" radius="lg">
-        <Skeleton className="rounded-lg">
-          <div className="h-24 rounded-lg bg-default-300"></div>
-        </Skeleton>
-        <div className="space-y-3">
-          <Skeleton className="w-3/5 rounded-lg">
-            <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
-          </Skeleton>
-          <Skeleton className="w-4/5 rounded-lg">
-            <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
-          </Skeleton>
-          <Skeleton className="w-2/5 rounded-lg">
-            <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
-          </Skeleton>
+      <div className="h-screen w-screen flex justify-center items-center bg-white">
+        <div className="w-1/3 h-1/3">
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150"><path fill="none" stroke="#000000" stroke-width="10" stroke-linecap="round" stroke-dasharray="300 385" stroke-dashoffset="0" d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z"><animate attributeName="stroke-dashoffset" calcMode="spline" dur="2" values="685;-685" keySplines="0 0 1 1" repeatCount="indefinite"></animate></path></svg>
         </div>
-      </Card>
+      </div>
     );
   }
   const activePalette =
@@ -247,7 +260,24 @@ export default function Home() {
   const activeImage =
     categoryData[conditionColors[activeCondition].category].icon;
   const activeDescription = conditionColors[activeCondition].desc;
- 
+  const AccordianComponent = ({items}) => {
+    // create list of keys and values
+    return (
+      
+      <Accordion>
+        {items.map((val, index) => (
+        <AccordionItem
+          key={index}
+          title={Object.keys(val)[0]}
+          className="text-black border-black border-2 rounded-2xl space-y-4 px-10 py-4"
+        >
+         {Object.values(val)[0] as string}
+        </AccordionItem>  
+        ))}
+      </Accordion>
+    );
+    
+  }
 
   function Hero() {
     return (
@@ -267,9 +297,24 @@ export default function Home() {
       </Button>
     );
   }
+  function medicationArray(){
+    var list = data[conditionsArray.indexOf(activeCondition)].answers[0];
+    var newl = list.split('\n\n').slice(1,-1);
+    const mediArr = [];
+    for(let i = 0; i<newl.length; i++){
+      const [key, value] = newl[i].split(': ');
+      const keyValuePairs = {[key]: value};
+      mediArr.push(keyValuePairs)
+
+    }
+    console.log(mediArr)
+    return mediArr
+
+  }
+  
   function Medication() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+    var testitems = [{"hi":"bye", "ey":"no", "go":"stop"}]
     return (
       <div className="col-span-4 row-span-1">
         <Button
@@ -305,14 +350,14 @@ export default function Home() {
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-white border-full h-screen"
+          className="bg-white border-full min-h-screen p-[80px]"
           hideCloseButton={true}
           scrollBehavior={"outside"}
         >
           <ModalContent>
             {(onClose: any) => (
               <>
-                <ModalHeader className="flex flex-col gap-4 pl-4">
+                <ModalHeader className="pt-16 flex flex-col gap-4 pl-4">
                   <Button onClick={onClose}>
                     <svg
                       width="60"
@@ -335,25 +380,31 @@ export default function Home() {
                         width="58"
                         height="58"
                         rx="29"
-                        stroke="#1F2A37"
+                        stroke={activePalette.accent}
                         stroke-width="2"
                       />
                       <path
                         d="M42 18.5L30 30M30 30L18 41.5M30 30L18 18.5M30 30L42 41.5"
-                        stroke="#1F2A37"
+                        stroke={activePalette.accent}
                         stroke-width="4"
                         stroke-linecap="round"
                       />
                     </svg>
                   </Button>
-                  <div className="text-2xl px-2 py-0 text-black">Treatment </div>
+                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                    Treatment{" "}
+                  </div>
                   <div className="text-md px-2 py-0 text-black">
                     In-depth understanding of your wellness plan.
                   </div>
                 </ModalHeader>
+
                 <ModalBody className="h-5/6">
-                  <Accordion
-                    variant="splitted"
+                  <AccordianComponent
+                    items={medicationArray()}
+                  ></AccordianComponent>
+                  {/*<Accordion
+                   variant="splitted"
                     disableIndicatorAnimation={false}
                     className="text-black space-y-4"
                   >
@@ -379,7 +430,7 @@ export default function Home() {
                       title="Accordion 3"
                       className="border-black border-2 rounded-2xl px-10 py-4"
                     ></AccordionItem>
-                  </Accordion>
+            </Accordion>*/}
                 </ModalBody>
               </>
             )}
@@ -388,7 +439,21 @@ export default function Home() {
       </div>
     );
   }
+  function symptomArr(){
+    var list = data[conditionsArray.indexOf(activeCondition)].answers[1];
+    var newl = list.split('\n\n').slice(1,-1);
+    const mediArr = [];
+    for(let i = 0; i<newl.length; i++){
+      const [key, value] = newl[i].split(': ');
+      const keyValuePairs = {[key]: value};
+      mediArr.push(keyValuePairs)
 
+    }
+    console.log(mediArr)
+    return mediArr
+
+
+  }
   function Symptoms() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     return (
@@ -460,14 +525,14 @@ export default function Home() {
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-white border-full min-h-screen"
+          className="bg-white border-full min-h-screen p-[80px]"
           hideCloseButton={true}
           scrollBehavior={"outside"}
         >
           <ModalContent>
             {(onClose: any) => (
               <>
-                <ModalHeader className="flex flex-col gap-4 pl-4">
+                <ModalHeader className=" flex flex-col gap-4 pl-4">
                   <Button onClick={onClose}>
                     <svg
                       width="60"
@@ -490,23 +555,28 @@ export default function Home() {
                         width="58"
                         height="58"
                         rx="29"
-                        stroke="#1F2A37"
+                        stroke={activePalette.accent}
                         stroke-width="2"
                       />
                       <path
                         d="M42 18.5L30 30M30 30L18 41.5M30 30L18 18.5M30 30L42 41.5"
-                        stroke="#1F2A37"
+                        stroke={activePalette.accent}
                         stroke-width="4"
                         stroke-linecap="round"
                       />
                     </svg>
                   </Button>
-                  <div className="text-2xl px-2 py-0 text-black"> Symptoms</div>
+                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                    {" "}
+                    Symptoms
+                  </div>
                   <div className="text-md px-2 py-0 text-black">
                     Common symptoms associated with your diagnosis
                   </div>
                 </ModalHeader>
                 <ModalBody className="h-5/6">
+                  <AccordianComponent items={symptomArr()}></AccordianComponent>
+                  {/*
                   <Accordion
                     variant="splitted"
                     disableIndicatorAnimation={false}
@@ -535,6 +605,7 @@ export default function Home() {
                       className="border-black border-2 rounded-2xl px-10 py-4"
                     ></AccordionItem>
                   </Accordion>
+            */}
                 </ModalBody>
               </>
             )}
@@ -545,15 +616,14 @@ export default function Home() {
   }
   function Prognosis() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    console.log(conditionsArray);
-    var text;
-    
     if(data){
-       text =  data[0].answers[3];
+      var index = conditionsArray.indexOf(activeCondition);
+      var text = data[index].answers[3];
+    } else {
+      text = "hi";
     }
-    else{
-       text = "Loading...";
-    }
+    
+   
     return (
       <div className="col-span-7 row-span-1">
         <Button
@@ -632,13 +702,13 @@ export default function Home() {
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-black h-screen "
+          className="bg-white text-black h-screen p-[80px]"
           hideCloseButton={true}
         >
           <ModalContent>
             {(onClose: any) => (
               <>
-                <ModalHeader className="flex flex-col gap-4 pl-4">
+                <ModalHeader className=" flex flex-col gap-4 pl-4">
                   <Button onClick={onClose}>
                     <svg
                       width="60"
@@ -672,11 +742,14 @@ export default function Home() {
                       />
                     </svg>
                   </Button>
-                  Prognosis
+                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                    Prognosis{" "}
+                  </div>
+                  <div className="text-md px-2 py-0 text-black">
+                    Understanding your life outlook.
+                  </div>
                 </ModalHeader>
-                <ModalBody className="h-5/6">
-                {text}
-                </ModalBody>
+                <ModalBody className="h-5/6">{text}</ModalBody>
               </>
             )}
           </ModalContent>
@@ -684,11 +757,25 @@ export default function Home() {
       </div>
     );
   }
+  function researchArr(){
+     var list = data[conditionsArray.indexOf(activeCondition)].answers[4];
+    var newl = list.split('\n\n').slice(1,-1);
+    const mediArr = [];
+    for(let i = 0; i<newl.length; i++){
+      const [key, value] = newl[i].split('\n', 1);
+      const keyValuePairs = {[key]: value};
+      mediArr.push(keyValuePairs)
+
+    }
+    console.log(mediArr)
+    return mediArr
+  }
   function Research() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     return (
       <div className="col-span-5 row-span-2">
         <Button
+          onPress={onOpen}
           className="shadow-md flex-col size-full bg-cover h-full rounded-2xl border-2 p-[20px] justify-start items-start flex text-black"
           style={{
             borderColor: activePalette.accent,
@@ -716,9 +803,7 @@ export default function Home() {
             Learn more from the latest sources.
           </div>
           <div className="flex flex-col justify-start pt-[1.25rem] h-full w-full gap-[1.25rem]">
-            <a
-              href=""
-              target="_blank"
+            <div
               className={`font-normal px-[1.25rem] py-[1.5rem] outline flex outline-2 rounded-2xl`}
               style={{
                 color: activePalette.accent,
@@ -727,13 +812,12 @@ export default function Home() {
               }}
             >
               <div className="flex justify-between items-center w-full">
-                <div className="flex flex-col items-start text-left overflow-hidden overflow-ellipsis whitespace-nowrap w-4/5">
+                <div className="flex flex-col items-start text-left whitespace-normal overflow-y-hidden w-4/5 text-ellipsis">
                   <div className="font-[18px] text-[#374151]">
-                    Test title here. Let's see
+                    {Object.keys(researchArr()[0])[0].slice(0, 139) + "..."}
                   </div>
                   <div className="text-[16px] text-[#6B7280]">
-                    Test description here, too. Any ellipsis over here? doesnt
-                    look like it..
+                    {Object.values(researchArr()[0])[0] as string}
                   </div>
                 </div>
                 <div>
@@ -751,10 +835,8 @@ export default function Home() {
                   </svg>
                 </div>
               </div>
-            </a>
-            <a
-              href=""
-              target="_blank"
+            </div>
+            <div
               className={`font-normal px-[1.25rem] py-[1.5rem] outline flex outline-2 rounded-2xl`}
               style={{
                 color: activePalette.accent,
@@ -763,13 +845,12 @@ export default function Home() {
               }}
             >
               <div className="flex justify-between items-center w-full">
-                <div className="flex flex-col items-start text-left overflow-hidden overflow-ellipsis whitespace-nowrap w-4/5">
+                <div className="flex flex-col items-start text-left whitespace-normal w-4/5">
                   <div className="font-[18px] text-[#374151]">
-                    Test title here. Let's see
+                    {Object.keys(researchArr()[1])[0].slice(0, 139) + "..."}
                   </div>
                   <div className="text-[16px] text-[#6B7280]">
-                    Test description here, too. Any ellipsis over here? doesnt
-                    look like it..
+                    {Object.values(researchArr()[1])[0] as string}
                   </div>
                 </div>
                 <div>
@@ -787,19 +868,20 @@ export default function Home() {
                   </svg>
                 </div>
               </div>
-            </a>
+            </div>
           </div>
         </Button>
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-black h-screen "
+          className="bg-white min-h-screen p-[80px]"
           hideCloseButton={true}
+          scrollBehavior={"outside"}
         >
           <ModalContent>
             {(onClose: any) => (
               <>
-                <ModalHeader className="flex flex-col gap-4 pl-4">
+                <ModalHeader className=" flex flex-col gap-4 pl-4">
                   <Button onClick={onClose}>
                     <svg
                       width="60"
@@ -822,20 +904,29 @@ export default function Home() {
                         width="58"
                         height="58"
                         rx="29"
-                        stroke="#1F2A37"
+                        stroke={activePalette.accent}
                         stroke-width="2"
                       />
                       <path
                         d="M42 18.5L30 30M30 30L18 41.5M30 30L18 18.5M30 30L42 41.5"
-                        stroke="#1F2A37"
+                        stroke={activePalette.accent}
                         stroke-width="4"
                         stroke-linecap="round"
                       />
                     </svg>
                   </Button>
-                  Modal Title
+                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                    Research{" "}
+                  </div>
+                  <div className="text-md px-2 py-0 text-black">
+                    Learn more from the latest sources.
+                  </div>
                 </ModalHeader>
-                <ModalBody className="h-5/6"></ModalBody>
+                <ModalBody className="h-5/6">
+                  <AccordianComponent
+                    items={researchArr()}
+                  ></AccordianComponent>
+                </ModalBody>
               </>
             )}
           </ModalContent>
@@ -843,11 +934,37 @@ export default function Home() {
       </div>
     );
   }
+  function commonqArr(){
+    var list = data[conditionsArray.indexOf(activeCondition)].answers[5];
+    var newl = list.split('/m');
+    return newl
+  }
+  const AccordianComponentQuestions = ({items}) => {
+    // create list of keys and values
+    console.log(items)
+    return (
+      
+      <Accordion
+      isDisabled={true}>
+        {items.map((val, index) => (
+        <AccordionItem
+          key={index}
+          title={val}
+          className="text-black border-black border-2 rounded-2xl px-10 py-4"
+        >
+        
+        </AccordionItem>  
+        ))}
+      </Accordion>
+    );
+    
+  }
   function Commonquestions() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     return (
       <div className="col-span-7 row-span-1">
         <Button
+          onPress={onOpen}
           className="flex-col size-full bg-cover h-full rounded-2xl border-2 border-[#F23030] bg-[#FEF3F3] p-[20px] justify-start items-start flex text-black"
           style={{
             borderColor: activePalette.accent,
@@ -918,13 +1035,13 @@ export default function Home() {
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-black h-screen "
+          className="bg-white min-h-screen p-[80px]"
           hideCloseButton={true}
         >
           <ModalContent>
             {(onClose: any) => (
               <>
-                <ModalHeader className="flex flex-col gap-4 pl-4">
+                <ModalHeader className="flex flex-col gap-4">
                   <Button onClick={onClose}>
                     <svg
                       width="60"
@@ -947,20 +1064,27 @@ export default function Home() {
                         width="58"
                         height="58"
                         rx="29"
-                        stroke="#1F2A37"
+                        stroke={activePalette.accent}
                         stroke-width="2"
                       />
                       <path
                         d="M42 18.5L30 30M30 30L18 41.5M30 30L18 18.5M30 30L42 41.5"
-                        stroke="#1F2A37"
+                        stroke={activePalette.accent}
                         stroke-width="4"
                         stroke-linecap="round"
                       />
                     </svg>
                   </Button>
-                  Modal Title
+                  <div className="pt-16 text-5xl font-bold px-2 py-0 text-black">
+                    Common Questions{" "}
+                  </div>
+                  <div className="text-md px-2 py-0 text-black">
+                    Questions asked by other patients.
+                  </div>
                 </ModalHeader>
-                <ModalBody className="h-5/6"></ModalBody>
+                <ModalBody className="h-5/6"><AccordianComponentQuestions
+                 items={commonqArr()}></AccordianComponentQuestions>
+              </ModalBody>
               </>
             )}
           </ModalContent>
