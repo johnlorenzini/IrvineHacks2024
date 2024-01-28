@@ -282,14 +282,14 @@ export default function Home() {
   function Hero() {
     return (
       <Button
-        className="row-span-3 bg-cover size-full h-full col-span-8 text-white rounded-2xl bg-[#F56060]  p-[40px] flex justify-start items-start whitespace-normal"
+        className="row-span-3 bg-cover size-full h-full col-span-8 text-white rounded-2xl bg-[#F56060]  p-[2.0833vw] flex justify-start items-start whitespace-normal"
         style={{
           backgroundColor: activePalette.hero,
         }}
       >
         <div className="flex flex-col text-left">
           <div className="font-bold text-6xl">{activeCondition}</div>
-          <div className="text-[1.75rem] font-semibol w-5/6">
+          <div className="text-[1.4583vw] font-semibol w-5/6">
             {activeDescription}
           </div>
         </div>
@@ -318,7 +318,7 @@ export default function Home() {
     return (
       <div className="col-span-4 row-span-1">
         <Button
-          className={`flex-col size-full bg-cover h-full rounded-2xl border-2 border-[${activePalette.hero}] bg-[#FEF3F3] p-[20px] justify-start items-start flex text-black`}
+          className={`flex-col size-full bg-cover h-full rounded-2xl border-2 border-[${activePalette.hero}] bg-[#FEF3F3] p-[1.0417vw] justify-start items-start flex text-black`}
           style={{
             borderColor: activePalette.accent,
             backgroundColor: activePalette.card,
@@ -343,21 +343,21 @@ export default function Home() {
               <div className="text-5xl  font-bold">Treatment</div>
             </div>
           </div>
-          <div className="pt-2 text-2xl font-semibold text-[#6B7280] w-5/6 whitespace-normal text-left">
+          <div className="pt-2 text-xl font-semibold text-[#6B7280] w-5/6 whitespace-normal text-left">
             In-depth understanding of your wellness plan.
           </div>
         </Button>
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-white border-full min-h-screen p-[80px]"
+          className="bg-white border-full min-h-screen p-[4.1667vw]"
           hideCloseButton={true}
           scrollBehavior={"outside"}
         >
           <ModalContent>
             {(onClose: any) => (
               <>
-                <ModalHeader className="pt-16 flex flex-col gap-4 pl-4">
+                <ModalHeader className="flex flex-col gap-4 pl-4">
                   <Button onClick={onClose}>
                     <svg
                       width="60"
@@ -459,7 +459,7 @@ export default function Home() {
     return (
       <div className="col-span-4 row-span-2">
         <Button
-          className="flex-col size-full bg-cover h-full rounded-2xl border-2 border-[#F23030] bg-[#FEF3F3] p-[20px] justify-start items-start flex text-black"
+          className="flex-col size-full bg-cover h-full rounded-2xl border-2 border-[#F23030] bg-[#FEF3F3] p-[1.0417vw] justify-start items-start flex text-black"
           style={{
             borderColor: activePalette.accent,
             backgroundColor: activePalette.card,
@@ -501,21 +501,21 @@ export default function Home() {
             </svg>
             <div className="text-5xl  font-bold">Symptoms</div>
           </div>
-          <div className="pl-[20px] pt-5 flex flex-col w-full h-4/5 justify-around">
+          <div className="pl-[1.0417vw] pt-5 flex flex-col w-full h-4/5 justify-around">
             <div
-              className=" border-l-3 border-l-[#E10E0E] pl-[20px] py-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left"
+              className=" border-l-3 border-l-[#E10E0E] pl-[1.0417vw] py-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left"
               style={{ borderLeftColor: activePalette.accent }}
             >
               Primary Symptoms
             </div>
             <div
-              className=" border-l-3 border-l-[#E10E0E] pl-[20px] py-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left"
+              className=" border-l-3 border-l-[#E10E0E] pl-[1.0417vw] py-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left"
               style={{ borderLeftColor: activePalette.accent }}
             >
               Secondary Symptoms
             </div>
             <div
-              className=" border-l-3 border-l-[#E10E0E] pl-[20px] py-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left"
+              className=" border-l-3 border-l-[#E10E0E] pl-[1.0417vw] py-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left"
               style={{ borderLeftColor: activePalette.accent }}
             >
               Physical Symptoms
@@ -525,7 +525,7 @@ export default function Home() {
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-white border-full min-h-screen p-[80px]"
+          className="bg-white border-full min-h-screen p-[4.1667vw]"
           hideCloseButton={true}
           scrollBehavior={"outside"}
         >
@@ -628,7 +628,7 @@ export default function Home() {
       <div className="col-span-7 row-span-1">
         <Button
           onPress={onOpen}
-          className="shadow-md flex-col size-full bg-cover h-full rounded-2xl border-2 p-[20px] justify-start items-start flex text-black"
+          className="shadow-md flex-col size-full bg-cover h-full rounded-2xl border-2 p-[1.0417vw] justify-start items-start flex text-black"
           style={{
             borderColor: activePalette.accent,
             backgroundColor: activePalette.card,
@@ -666,9 +666,9 @@ export default function Home() {
           <div className="pt-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left">
             Understanding your life outlook.
           </div>
-          <div className="flex items-center h-full gap-[0.7rem]">
+          <div className="flex items-center h-full gap-[.5833vw]">
             <div
-              className={`text-base font-normal text-center w-[140px] h-[34px] outline flex items-center justify-center outline-2 bg-[#FFF5F5] rounded-full`}
+              className={`text-base font-normal text-center w-[7.2917vw] h-[1.7708vw] outline flex items-center justify-center outline-2 bg-[#FFF5F5] rounded-full`}
               style={{
                 color: activePalette.accent,
                 backgroundColor: activePalette.badge,
@@ -678,7 +678,7 @@ export default function Home() {
               Favorable
             </div>
             <div
-              className={`text-base font-normal text-center w-[140px] h-[34px] outline flex items-center justify-center outline-2 bg-[#FFF5F5] rounded-full`}
+              className={`text-base font-normal text-center w-[7.2917vw] h-[1.7708vw] outline flex items-center justify-center outline-2 bg-[#FFF5F5] rounded-full`}
               style={{
                 color: activePalette.accent,
                 backgroundColor: activePalette.badge,
@@ -688,7 +688,7 @@ export default function Home() {
               Guarded
             </div>
             <div
-              className={`text-base font-normal text-center w-[140px] h-[34px] outline flex items-center justify-center outline-2 bg-[#FFF5F5] rounded-full`}
+              className={`text-base font-normal text-center w-[7.2917vw] h-[1.7708vw] outline flex items-center justify-center outline-2 bg-[#FFF5F5] rounded-full`}
               style={{
                 color: activePalette.accent,
                 backgroundColor: activePalette.badge,
@@ -702,7 +702,7 @@ export default function Home() {
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-white text-black h-screen p-[80px]"
+          className="bg-white text-black h-screen p-[4.1667vw]"
           hideCloseButton={true}
         >
           <ModalContent>
@@ -776,7 +776,7 @@ export default function Home() {
       <div className="col-span-5 row-span-2">
         <Button
           onPress={onOpen}
-          className="shadow-md flex-col size-full bg-cover h-full rounded-2xl border-2 p-[20px] justify-start items-start flex text-black"
+          className="shadow-md flex-col size-full bg-cover h-full rounded-2xl border-2 p-[1.0417vw] justify-start items-start flex text-black"
           style={{
             borderColor: activePalette.accent,
             backgroundColor: activePalette.card,
@@ -802,9 +802,9 @@ export default function Home() {
           <div className="pt-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left">
             Learn more from the latest sources.
           </div>
-          <div className="flex flex-col justify-start pt-[1.25rem] h-full w-full gap-[1.25rem]">
+          <div className="flex flex-col justify-start pt-[1.0417vw] h-full w-full gap-[1.0417vw]">
             <div
-              className={`font-normal px-[1.25rem] py-[1.5rem] outline flex outline-2 rounded-2xl`}
+              className={`font-normal px-[1.0417vw] py-[1.25vw] outline flex outline-2 rounded-2xl`}
               style={{
                 color: activePalette.accent,
                 backgroundColor: activePalette.badge,
@@ -813,10 +813,10 @@ export default function Home() {
             >
               <div className="flex justify-between items-center w-full">
                 <div className="flex flex-col items-start text-left whitespace-normal overflow-y-hidden w-4/5 text-ellipsis">
-                  <div className="font-[18px] text-[#374151]">
+                  <div className="font-[.9375vw] text-[#374151]">
                     {Object.keys(researchArr()[0])[0].slice(0, 139) + "..."}
                   </div>
-                  <div className="text-[16px] text-[#6B7280]">
+                  <div className="text-[.8333vw] text-[#6B7280]">
                     {Object.values(researchArr()[0])[0] as string}
                   </div>
                 </div>
@@ -836,45 +836,13 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div
-              className={`font-normal px-[1.25rem] py-[1.5rem] outline flex outline-2 rounded-2xl`}
-              style={{
-                color: activePalette.accent,
-                backgroundColor: activePalette.badge,
-                borderColor: activePalette.accent,
-              }}
-            >
-              <div className="flex justify-between items-center w-full">
-                <div className="flex flex-col items-start text-left whitespace-normal w-4/5">
-                  <div className="font-[18px] text-[#374151]">
-                    {Object.keys(researchArr()[1])[0].slice(0, 139) + "..."}
-                  </div>
-                  <div className="text-[16px] text-[#6B7280]">
-                    {Object.values(researchArr()[1])[0] as string}
-                  </div>
-                </div>
-                <div>
-                  <svg
-                    width="20"
-                    height="19"
-                    viewBox="0 0 20 19"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M19.5998 8.89997L11.8373 1.02498C11.4998 0.687476 10.9748 0.687476 10.6373 1.02498C10.2998 1.36248 10.2998 1.88748 10.6373 2.22498L16.9373 8.63748H0.999805C0.549805 8.63748 0.174805 9.01248 0.174805 9.46247C0.174805 9.91248 0.549805 10.325 0.999805 10.325H17.0123L10.6373 16.8125C10.2998 17.15 10.2998 17.675 10.6373 18.0125C10.7873 18.1625 11.0123 18.2375 11.2373 18.2375C11.4623 18.2375 11.6873 18.1625 11.8373 17.975L19.5998 10.1C19.9373 9.76248 19.9373 9.23748 19.5998 8.89997Z"
-                      fill="#111928"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </Button>
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-white min-h-screen p-[80px]"
+          className="bg-white min-h-screen p-[4.1667vw]"
           hideCloseButton={true}
           scrollBehavior={"outside"}
         >
@@ -965,7 +933,7 @@ export default function Home() {
       <div className="col-span-7 row-span-1">
         <Button
           onPress={onOpen}
-          className="flex-col size-full bg-cover h-full rounded-2xl border-2 border-[#F23030] bg-[#FEF3F3] p-[20px] justify-start items-start flex text-black"
+          className="flex-col size-full bg-cover h-full rounded-2xl border-2 border-[#F23030] bg-[#FEF3F3] p-[1.0417vw] justify-start items-start flex text-black"
           style={{
             borderColor: activePalette.accent,
             backgroundColor: activePalette.card,
@@ -999,9 +967,9 @@ export default function Home() {
           <div className="pt-2 text-2xl font-semibold text-[#6B7280] whitespace-normal text-left">
             Questions asked by other patients.
           </div>
-          <div className="flex items-center h-full gap-[0.7rem]">
+          <div className="flex items-center h-full gap-[.5833vw]">
             <div
-              className="text-base font-normal text-center h-[34px] outline flex items-center justify-center outline-2 rounded-full px-5"
+              className="text-base font-normal text-center h-[1.7708vw] outline flex items-center justify-center outline-2 rounded-full px-5"
               style={{
                 color: activePalette.accent,
                 backgroundColor: activePalette.badge,
@@ -1011,7 +979,7 @@ export default function Home() {
               Understanding
             </div>
             <div
-              className="text-base font-normal text-center h-[34px] outline flex items-center justify-center outline-2 rounded-full px-5"
+              className="text-base font-normal text-center h-[1.7708vw] outline flex items-center justify-center outline-2 rounded-full px-5"
               style={{
                 color: activePalette.accent,
                 backgroundColor: activePalette.badge,
@@ -1021,7 +989,7 @@ export default function Home() {
               Financial Concerns
             </div>
             <div
-              className="text-base font-normal text-center h-[34px] outline flex items-center justify-center outline-2 rounded-full px-5"
+              className="text-base font-normal text-center h-[1.7708vw] outline flex items-center justify-center outline-2 rounded-full px-5"
               style={{
                 color: activePalette.accent,
                 backgroundColor: activePalette.badge,
@@ -1035,7 +1003,7 @@ export default function Home() {
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className="bg-white min-h-screen p-[80px]"
+          className="bg-white min-h-screen p-[4.1667vw]"
           hideCloseButton={true}
         >
           <ModalContent>
@@ -1095,7 +1063,7 @@ export default function Home() {
 
   return (
     <div
-      className="grid aspect-video w-screen h-screen grid-cols-12 grid-rows-5 gap-[20px] p-[25px] 2xl:p-[50px]"
+      className="grid aspect-video w-screen h-screen grid-cols-12 grid-rows-5 gap-[1.0417vw] p-[1.3021vw] 2xl:p-[2.6042vw]"
       style={{ backgroundColor: activePalette.background }}
     >
       <Hero></Hero>
