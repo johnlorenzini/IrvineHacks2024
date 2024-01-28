@@ -31,7 +31,7 @@ const activeCondition = queryParameters.get("condition");
   }, []);
  
 
-const conditions = [
+const conditionsArray = [
   "Addisons disease",
   "Asthma",
   "Bipolar mood disorder",
@@ -59,6 +59,7 @@ const conditions = [
   "Systemic lupus erythematosus",
   "Ulcerative colitis",
 ];
+
 const categoryData = {
   endocrine: {
     color: "blue",
@@ -638,9 +639,11 @@ function Prognosis() {
                     />
                   </svg>
                 </Button>
-                Modal Title
+                Prognosis
               </ModalHeader>
-              <ModalBody className="h-5/6"></ModalBody>
+              <ModalBody className="h-5/6">
+                data.[]
+              </ModalBody>
             </>
           )}
         </ModalContent>
@@ -855,14 +858,7 @@ export default function Home() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("../../responses_6.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
-  }, []);
+ 
 
   return (
     <div
