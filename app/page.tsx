@@ -46,6 +46,7 @@ export default function Home() {
 
   const data = JSON.stringify({ question });
 
+  // api call
   async function callGPT(targetResponse: string): Promise<string> {
     const response = await fetch(
       `http://localhost:3000/api/route?targetResponse=${targetResponse}`, // replace with proper api route
@@ -58,9 +59,6 @@ export default function Home() {
       }
     );
     const responseData = await response.text();
-    console.log("response:", response);
-    console.log("targetResponse:", targetResponse);
-    console.log("responseData:", responseData);
     return responseData;
   }
 
@@ -87,6 +85,7 @@ export default function Home() {
     setSearchResults(foundResults);
     console.log(foundResults);
   }
+
   return (
     <NextUIProvider>
       <main className="w-screen flex flex-col bg-gray-300 h-screen justify-start items-center pt-12 px-60">

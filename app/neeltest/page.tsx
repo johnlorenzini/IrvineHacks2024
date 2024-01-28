@@ -1,8 +1,9 @@
 "use client";
 import app from "../../utils/firebase";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 const db = getFirestore(app);
+import { useState, useEffect } from "react";
 
 console.log(db);
 const text: string =
@@ -23,13 +24,22 @@ for (const entry of entries) {
   meds.set(lines[0], lines[1]);
 }
 
-console.log(meds);
-async function addData() {
-  await setDoc(doc(db, "Conditions", "Asthma"), { treatment: meds });
-}
-
-addData();
 export default function Home() {
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/responses_6.json")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("hello!");
+        setData(data);
+        setLoading(false);
+      });
+  }, []);
+  if (isLoading) return <p>Loading...</p>;
+  if (data == null) return <p>No profile data</p>;
+  console.log(data[0]);
   return (
     <div className="grid aspect-video w-screen h-screen bg-gray-300 grid-cols-12 grid-rows-5 gap-[20px] p-[25px] 2xl:p-[50px]"></div>
   );

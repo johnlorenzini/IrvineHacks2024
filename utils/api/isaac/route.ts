@@ -4,30 +4,34 @@ export const dynamic = "force-dynamic";
 
 export const runtime = "edge";
 
-export default async function POST(request: Request) {
+export async function POST(request: Request) {
+  console.log("in the thing");
+
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
-  // What are common medications taken for  diabetes and their description and side effects in easy to understand language? Respond with a list with "/n" before each entry
+
   let prompt = await request.text();
   let prompt1 =
-    "What are common medications taken for " +
+    "What are some common medications taken for " +
     prompt +
-    " and their side effects in easy to understand language? Respond with a list with '/n' before each entry";
+    " and side effects in very easy to understand language and simplify the medical terms?";
   let prompt2 =
     "What are three top symptoms of " +
     prompt +
-    " and their description in easy to understand language? Respond with a list with '/n' before each entry";
+    " and their description in very easy to understand language?";
   let prompt3 =
     "What are the most common treatments for " +
     prompt +
-    " and their description in easy to understand language? Respond with a list with '/n' before each entry";
+    " and their description in very easy to understand language?";
   let prompt4 =
     "Based on the terms Favorable, Guarded, Unfavorable, what is the prognosis for " +
     prompt +
-    " and their description in easy to understand language? Respond with a list with '/n' before each entry";
+    " and their description in very easy to understand language?";
   let prompt5 =
-    "Can you look through the previous answers and simplify the language more to make it easier to understand?";
+    "Can you provide me 10 links to online resources on " +
+    prompt +
+    " and provide a one sentence summary and the title of the website?";
 
   const response1 = await openai.chat.completions.create({
     messages: [
@@ -42,7 +46,11 @@ export default async function POST(request: Request) {
 
   const response2 = await openai.chat.completions.create({
     messages: [
-      { role: "system", content: "You are a helpful assistant" },
+      {
+        role: "system",
+        content:
+          "You are a helpful assistant tasked to simplify complex medical terminology for patients who have received a life-changing diagnosis. In your responses, you will use a high-school level of vocabulary, use examples and metaphors to explain complex terms, and overall allow a patient with no medical background to easily understand a complex medical situation.",
+      },
       { role: "user", content: prompt2 },
     ],
     model: "gpt-3.5-turbo",
@@ -53,7 +61,11 @@ export default async function POST(request: Request) {
 
   const response3 = await openai.chat.completions.create({
     messages: [
-      { role: "system", content: "You are a helpful assistant" },
+      {
+        role: "system",
+        content:
+          "You are a helpful assistant tasked to simplify complex medical terminology for patients who have received a life-changing diagnosis. In your responses, you will use a high-school level of vocabulary, use examples and metaphors to explain complex terms, and overall allow a patient with no medical background to easily understand a complex medical situation.",
+      },
       { role: "user", content: prompt3 },
     ],
     model: "gpt-3.5-turbo",
@@ -64,23 +76,31 @@ export default async function POST(request: Request) {
 
   const response4 = await openai.chat.completions.create({
     messages: [
-      { role: "system", content: "You are a helpful assistant" },
+      {
+        role: "system",
+        content:
+          "You are a helpful assistant tasked to simplify complex medical terminology for patients who have received a life-changing diagnosis. In your responses, you will use a high-school level of vocabulary, use examples and metaphors to explain complex terms, and overall allow a patient with no medical background to easily understand a complex medical situation.",
+      },
       { role: "user", content: prompt4 },
     ],
     model: "gpt-3.5-turbo",
     temperature: 0,
-    max_tokens: 300,
+    max_tokens: 1024,
     stream: true,
   });
 
   const response5 = await openai.chat.completions.create({
     messages: [
-      { role: "system", content: "You are a helpful assistant" },
+      {
+        role: "system",
+        content:
+          "You are a helpful assistant tasked to simplify complex medical terminology for patients who have received a life-changing diagnosis. In your responses, you will use a high-school level of vocabulary, use examples and metaphors to explain complex terms, and overall allow a patient with no medical background to easily understand a complex medical situation.",
+      },
       { role: "user", content: prompt5 },
     ],
     model: "gpt-3.5-turbo",
     temperature: 0,
-    max_tokens: 300,
+    max_tokens: 1024,
     stream: true,
   });
 
@@ -99,15 +119,15 @@ export default async function POST(request: Request) {
   const streamResponse4 = new StreamingTextResponse(stream4);
   const streamResponse5 = new StreamingTextResponse(stream5);
 
-  if (targetResponse == "response1") {
+  if (targetResponse == "medications") {
     return streamResponse1;
-  } else if (targetResponse == "response2") {
+  } else if (targetResponse == "symptoms") {
     return streamResponse2;
-  } else if (targetResponse == "response3") {
+  } else if (targetResponse == "treatments") {
     return streamResponse3;
-  } else if (targetResponse == "response4") {
+  } else if (targetResponse == "prognosis") {
     return streamResponse4;
-  } else if (targetResponse == "response5") {
+  } else if (targetResponse == "resources") {
     return streamResponse5;
   }
 }
