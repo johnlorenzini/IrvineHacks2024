@@ -17,7 +17,48 @@ import { useState, useEffect } from "react";
 
 const queryParameters = new URLSearchParams(window.location.search);
 const activeCondition = queryParameters.get("condition");
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(true);
 
+  useEffect(() => {
+    fetch("/responses_6.json")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("hello!");
+        setData(data);
+        setLoading(false);
+      });
+  }, []);
+ 
+
+const conditions = [
+  "Addisons disease",
+  "Asthma",
+  "Bipolar mood disorder",
+  "Bronchiectasis",
+  "Cardiac dysrhythmias",
+  "Cardiac failure",
+  "Cardiomyopathy",
+  "Chronic obstructive pulmonary disease",
+  "Chronic renal disease",
+  "Coronary artery disease",
+  "Crohns disease",
+  "Diabetes insipidus",
+  "Diabetes mellitus Type 1",
+  "Diabetes mellitus Type 2",
+  "Epilepsy",
+  "Glaucoma",
+  "Haemophilia",
+  "Hyperlipidaemia",
+  "Hypertension",
+  "Hypothyroidism",
+  "Multiple sclerosis",
+  "Parkinsons disease",
+  "Rheumatoid arthritis",
+  "Schizophrenia",
+  "Systemic lupus erythematosus",
+  "Ulcerative colitis",
+];
 const categoryData = {
   endocrine: {
     color: "blue",
@@ -174,12 +215,13 @@ const paletteBox = {
   },
 };
 
+if (!activeCondition) {
+  window.location.href = "/";
+}
 // @ts-ignore
-const activePalette =
-  paletteBox[categoryData[conditionColors[activeCondition].category].color];
+const activePalette = paletteBox[categoryData[conditionColors[activeCondition].category].color];
 // @ts-ignore
-const activeImage =
-  categoryData[conditionColors[activeCondition].category].icon;
+const activeImage = categoryData[conditionColors[activeCondition].category].icon;
 // @ts-ignore
 const activeDescription = conditionColors[activeCondition].desc;
 
